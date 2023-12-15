@@ -48,7 +48,7 @@ namespace AStarPath
                 }
             }
             // Define the start and end nodes
-            WriteLine("Set the start and end points' coords! (x1,y1,x2,y2)");
+            WriteLine("Set the start and end points' coords! (6,0,0,2)");
             int[] coords = ReadLine().Split(',').Select(int.Parse).ToArray();
             AStarNode startNode = grid[coords[0], coords[1]];
             AStarNode endNode = grid[coords[2], coords[3]];
