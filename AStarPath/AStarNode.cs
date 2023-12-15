@@ -20,8 +20,31 @@ namespace AStarPath
             IsObstacle = isObstacle;
             Neighbors = new List<AStarNode>();
         }
-
+        //This is optimal for us due the less neigbors (no diagonals)
         public void GenerateNeighbors(AStarNode[,] grid)
+        {
+            Neighbors.Clear();
+
+            int gridSizeX = grid.GetLength(0);
+            int gridSizeY = grid.GetLength(1);
+
+            // Define the possible offsets for adjacent nodes (up, down, left, right)
+            int[] xOffset = { 0, 0, -1, 1 };
+            int[] yOffset = { -1, 1, 0, 0 };
+
+            for (int i = 0; i < xOffset.Length; i++)
+            {
+                int checkX = X + xOffset[i];
+                int checkY = Y + yOffset[i];
+
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+                    Neighbors.Add(grid[checkX, checkY]);
+                }
+            }
+        }
+        // This is the original NeighborGenerator but its not optimal for us
+        /*public void GenerateNeighbors(AStarNode[,] grid)
         {
             Neighbors.Clear();
 
@@ -44,6 +67,6 @@ namespace AStarPath
                     }
                 }
             }
-        }
+        }*/
     }
 }
