@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace AStarPath
 {
@@ -43,8 +44,6 @@ namespace AStarPath
                 grid[point.X, point.Y].IsObstacle = true;
             }
 
-            points = null;
-
             // Generate neighbors for each node
             for (int x = 0; x < 11; x++)
             {
@@ -66,24 +65,25 @@ namespace AStarPath
             {
                 Console.WriteLine("Path found:");
                 Bitmap pathBitmap = new Bitmap(11, 11);
-                int cx;
-                int cy;
-                int px = startNode.X;
-                int py = startNode.Y;
-                foreach (var node in path)
-                {
-                    cx = node.X;
-                    cy = node.Y;
-                    string direction = "up";
-                    if (px < cx)
-                    {
 
-                    }
-                    Console.WriteLine($"({node.X}, {node.Y}), {direction}");
-                    pathBitmap.SetPixel(node.X, node.Y, Color.FromArgb(0, 255, 255));
-                    cx = node.X;
-                    cy = node.Y;
+                for (int i = 0; i < path.Count - 1; i++)
+                {
+                    AStarNode currentNode = path[i];
+                    AStarNode nextNode = path[i + 1];
+
+                    int dx = nextNode.X - currentNode.X;
+                    int dy = nextNode.Y - currentNode.Y;
+
+                    string direction = GetDirection(dx, dy);
+
+                    Console.WriteLine($"({currentNode.X}, {currentNode.Y}), {direction}");
+
+                    pathBitmap.SetPixel(currentNode.X, currentNode.Y, Color.FromArgb(0, 255, 255));
                 }
+
+                // Add the last node to the bitmap
+                pathBitmap.SetPixel(path.Last().X, path.Last().Y, Color.FromArgb(0, 255, 255));
+
                 pathBitmap.Save("path.png");
             }
             else
@@ -91,6 +91,28 @@ namespace AStarPath
                 Console.WriteLine("No path found.");
             }
             Console.ReadKey(true);
+        }
+        // Helper method to get the direction based on dx and dy
+        private static string GetDirection(int dx, int dy)
+        {
+            if (dx == 1)
+            {
+                return "right";
+            }
+            else if (dx == -1)
+            {
+                return "left";
+            }
+            else if (dy == 1)
+            {
+                return "down";
+            }
+            else if (dy == -1)
+            {
+                return "up";
+            }
+
+            return "unknown";
         }
     }
 }
