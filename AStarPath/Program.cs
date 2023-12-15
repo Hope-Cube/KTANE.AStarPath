@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using static System.Console;
@@ -53,26 +54,25 @@ namespace AStarPath
             AStarNode startNode = grid[coords[0], coords[1]];
             AStarNode endNode = grid[coords[2], coords[3]];
             // Find the path using A* algorithm
-            List<AStarNode> path = AStar.FindPath(startNode, endNode);
+            List<AStarNode> path = AStar.FindPath(startNode, endNode);            
             // Print the path
             if (path != null)
             {
                 WriteLine("Path found:");
                 Bitmap pathBitmap = new Bitmap(11, 11);
-
-                for (int i = 0; i < path.Count - 1; i++)
+                for (int i = 0; i < path.Count - 1; i += 2)
                 {
                     AStarNode currentNode = path[i];
-                    AStarNode nextNode = path[i + 1];
-
-                    int dx = nextNode.X - currentNode.X;
-                    int dy = nextNode.Y - currentNode.Y;
-
+                    AStarNode nextNode = (i + 1 < path.Count) ? path[i + 1] : null;
+                    int dx = (nextNode != null) ? nextNode.X - currentNode.X : 0;
+                    int dy = (nextNode != null) ? nextNode.Y - currentNode.Y : 0;
                     string direction = GetDirection(dx, dy);
-
-                    WriteLine($"({currentNode.X}, {currentNode.Y}), {direction}");
-
+                    WriteLine($"{direction}");
                     pathBitmap.SetPixel(currentNode.X, currentNode.Y, Color.FromArgb(0, 255, 255));
+                    if (nextNode != null)
+                    {
+                        pathBitmap.SetPixel(nextNode.X, nextNode.Y, Color.FromArgb(0, 255, 255));
+                    }
                 }
                 // Add the last node to the bitmap
                 pathBitmap.SetPixel(path.Last().X, path.Last().Y, Color.FromArgb(0, 255, 255));

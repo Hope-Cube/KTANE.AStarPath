@@ -38,7 +38,7 @@ namespace AStarPath
                 }
             }
         }
-        // This is the original NeighborGenerator but its not optimal for us
+        // This is the original NeighborGenerator but it's not optimal for us
         /*public void GenerateNeighbors(AStarNode[,] grid)
         {
             Neighbors.Clear();
