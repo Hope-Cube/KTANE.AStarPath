@@ -80,7 +80,6 @@ namespace AStarPath
             }
             else
             {
-
                 WriteLine("No path found.");
             }
             ReadKey(true);
