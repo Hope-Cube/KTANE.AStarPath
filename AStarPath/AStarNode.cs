@@ -59,6 +59,5 @@ namespace AStarPath
                 }
             }
         }*/
-        //Test
     }
 }
