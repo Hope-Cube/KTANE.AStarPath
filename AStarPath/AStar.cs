@@ -77,10 +77,7 @@ namespace AStarPath
         }
         private static int GetIndexByNumber(int number)
         {
-            int[] array = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-            return
-                (number >= 1 && number <= 6) ? array[(number - 1) * 2] - 1 :
-                -1;
+            return (number >= 1 && number <= 6) ? (number * 2) - 2 : -1;
         }
         public static List<AStarNode> FindPath(AStarNode startNode, AStarNode endNode)
         {
