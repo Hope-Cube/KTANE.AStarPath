@@ -43,6 +43,7 @@ namespace AStarPath
             // Find the path using the A* algorithm
             List<AStarNode> path = FindPath(startNode, endNode);
             // Process and visualize the path
+            string direction = "";
             if (path != null)
             {
                 WriteLine("Path found:");
@@ -53,16 +54,15 @@ namespace AStarPath
                     AStarNode nextNode = (i + 1 < path.Count) ? path[i + 1] : null;
                     int dx = (nextNode != null) ? nextNode.X - currentNode.X : 0;
                     int dy = (nextNode != null) ? nextNode.Y - currentNode.Y : 0;
-                    string direction = GetDirection(dx, dy);
-                    // Display direction
-                    WriteLine($"{direction}");
+                    direction += GetDirection(dx, dy) + "\n";
                 }
             }
             else
             {
                 // Display a message if no path is found
-                WriteLine("No path found.");
+                direction = "No path found.";
             }
+            Write(direction);
         }
         /// <summary>
         /// Retrieves the field information based on the provided Point coordinates.
