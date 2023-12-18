@@ -75,15 +75,15 @@ namespace AStarPath
         private static int[] GetField(Point idp)
         {
             return
-                (idp == new Point(0, 1) || idp == new Point(5, 2)) ? new int[] { 0, 0 } :
-                (idp == new Point(1, 3) || idp == new Point(4, 1)) ? new int[] { 1, 0 } :
-                (idp == new Point(3, 3) || idp == new Point(5, 3)) ? new int[] { 2, 0 } :
-                (idp == new Point(0, 0) || idp == new Point(3, 0)) ? new int[] { 1, 0 } :
-                (idp == new Point(3, 5) || idp == new Point(4, 2)) ? new int[] { 1, 1 } :
-                (idp == new Point(2, 4) || idp == new Point(4, 0)) ? new int[] { 1, 2 } :
-                (idp == new Point(1, 0) || idp == new Point(5, 1)) ? new int[] { 2, 0 } :
-                (idp == new Point(2, 3) || idp == new Point(3, 0)) ? new int[] { 2, 1 } :
-                (idp == new Point(0, 4) || idp == new Point(2, 1)) ? new int[] { 2, 2 } :
+                (idp == new Point(1, 2) || idp == new Point(6, 3)) ? new int[] { 0, 0 } :
+                (idp == new Point(2, 4) || idp == new Point(5, 2)) ? new int[] { 1, 0 } :
+                (idp == new Point(4, 4) || idp == new Point(6, 4)) ? new int[] { 2, 0 } :
+                (idp == new Point(1, 1) || idp == new Point(4, 1)) ? new int[] { 1, 0 } :
+                (idp == new Point(4, 6) || idp == new Point(5, 3)) ? new int[] { 1, 1 } :
+                (idp == new Point(3, 5) || idp == new Point(5, 1)) ? new int[] { 1, 2 } :
+                (idp == new Point(2, 1) || idp == new Point(6, 2)) ? new int[] { 2, 0 } :
+                (idp == new Point(3, 4) || idp == new Point(4, 1)) ? new int[] { 2, 1 } :
+                (idp == new Point(1, 5) || idp == new Point(3, 2)) ? new int[] { 2, 2 } :
                 new int[] { };
         }
         /// <summary>
