@@ -75,15 +75,15 @@ namespace AStarPath
         private static int[] GetField(Point idp)
         {
             return
-                (idp == new Point(1, 2) || idp == new Point(6, 3)) ? new int[] { 0, 0 } :
-                (idp == new Point(2, 4) || idp == new Point(5, 2)) ? new int[] { 1, 0 } :
-                (idp == new Point(4, 4) || idp == new Point(6, 4)) ? new int[] { 2, 0 } :
-                (idp == new Point(1, 1) || idp == new Point(4, 1)) ? new int[] { 1, 0 } :
-                (idp == new Point(4, 6) || idp == new Point(5, 3)) ? new int[] { 1, 1 } :
-                (idp == new Point(3, 5) || idp == new Point(5, 1)) ? new int[] { 1, 2 } :
-                (idp == new Point(2, 1) || idp == new Point(6, 2)) ? new int[] { 2, 0 } :
-                (idp == new Point(3, 4) || idp == new Point(4, 1)) ? new int[] { 2, 1 } :
-                (idp == new Point(1, 5) || idp == new Point(3, 2)) ? new int[] { 2, 2 } :
+                (idp == new Point(0, 1) || idp == new Point(5, 2)) ? new int[] { 0, 0 } :
+                (idp == new Point(1, 3) || idp == new Point(4, 1)) ? new int[] { 1, 0 } :
+                (idp == new Point(3, 3) || idp == new Point(5, 3)) ? new int[] { 2, 0 } :
+                (idp == new Point(0, 0) || idp == new Point(3, 0)) ? new int[] { 1, 0 } :
+                (idp == new Point(3, 5) || idp == new Point(4, 2)) ? new int[] { 1, 1 } :
+                (idp == new Point(2, 4) || idp == new Point(4, 0)) ? new int[] { 1, 2 } :
+                (idp == new Point(1, 0) || idp == new Point(5, 1)) ? new int[] { 2, 0 } :
+                (idp == new Point(2, 3) || idp == new Point(3, 0)) ? new int[] { 2, 1 } :
+                (idp == new Point(0, 4) || idp == new Point(2, 1)) ? new int[] { 2, 2 } :
                 new int[] { };
         }
         /// <summary>
@@ -116,10 +116,8 @@ namespace AStarPath
             // Initialize the open and closed sets
             List<AStarNode> openSet = new List<AStarNode>();
             HashSet<AStarNode> closedSet = new HashSet<AStarNode>();
-
             // Add the start node to the open set
             openSet.Add(startNode);
-
             // Main A* algorithm loop
             while (openSet.Count > 0)
             {
@@ -133,18 +131,15 @@ namespace AStarPath
                         currentNode = openSet[i];
                     }
                 }
-
                 // Remove the current node from the open set and add it to the closed set
                 openSet.Remove(currentNode);
                 closedSet.Add(currentNode);
-
                 // Check if the current node is the destination
                 if (currentNode == endNode)
                 {
                     // Retrace the path if the destination is reached
                     return RetracePath(startNode, endNode);
                 }
-
                 // Explore neighbors
                 foreach (AStarNode neighbor in currentNode.Neighbors)
                 {
@@ -153,10 +148,8 @@ namespace AStarPath
                     {
                         continue;
                     }
-
                     // Calculate the cost to reach the neighbor from the current node
                     int newCostToNeighbor = currentNode.GCost + GetDistance(currentNode, neighbor);
-
                     // Update neighbor's costs and parent if a better path is found
                     if (newCostToNeighbor < neighbor.GCost || !openSet.Contains(neighbor))
                     {
@@ -172,7 +165,6 @@ namespace AStarPath
                     }
                 }
             }
-
             // Path not found
             return null;
         }
@@ -188,31 +180,27 @@ namespace AStarPath
         {
             // Initialize the list to store the path
             List<AStarNode> path = new List<AStarNode>();
-
             // Start from the end node
             AStarNode currentNode = endNode;
-
             // Traverse the path using parent pointers until reaching the start node
             while (currentNode != startNode)
             {
                 // Add the current node to the path
                 path.Add(currentNode);
-
                 // Move to the parent node
                 currentNode = currentNode.Parent;
             }
-
             // Reverse the path to obtain the correct order from start to end
             path.Reverse();
-
             // Return the retrace path
             return path;
-        }/// <summary>
-         /// Calculates the Manhattan distance between two AStarNodes.
-         /// </summary>
-         /// <param name="nodeA">The first node</param>
-         /// <param name="nodeB">The second node</param>
-         /// <returns>The Manhattan distance between the two nodes</returns>
+        }
+        /// <summary>
+        /// Calculates the Manhattan distance between two AStarNodes.
+        /// </summary>
+        /// <param name="nodeA">The first node</param>
+        /// <param name="nodeB">The second node</param>
+        /// <returns>The Manhattan distance between the two nodes</returns>
         private static int GetDistance(AStarNode nodeA, AStarNode nodeB) => Math.Abs(nodeA.X - nodeB.X) + Math.Abs(nodeA.Y - nodeB.Y);
     }
 }
